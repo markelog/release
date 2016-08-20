@@ -1,3 +1,4 @@
+// Package release get OS type/name/version
 package release
 
 import (
@@ -29,6 +30,23 @@ func LSBRelease() string {
 	return strings.TrimSpace(string(result))
 }
 
+// All gets all avaliable info
+func All() (string, string, string) {
+	if GOOS == "darwin" {
+		os := mac.New(Uname())
+
+		return os.Type(), os.Name(), os.Version()
+	}
+
+	if GOOS == "linux" {
+		os := linux.New(LSBRelease())
+
+		return os.Type(), os.Name(), os.Version()
+	}
+
+	return "", "", ""
+}
+
 // Name gets os name
 func Name() string {
 	if GOOS == "darwin" {
@@ -58,7 +76,7 @@ func Version() string {
 // Type gets type version
 func Type() string {
 	if GOOS == "darwin" {
-		return "mac"
+		return mac.New(Uname()).Type()
 	}
 
 	if GOOS == "linux" {

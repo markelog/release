@@ -1,3 +1,4 @@
+// Package mac gets mac type/name/version
 package mac
 
 import (
@@ -28,6 +29,11 @@ func (mac Mac) Name() string {
 // Version gets mac version
 func (mac Mac) Version() string {
 	return versions[mac.info()]["version"]
+}
+
+// Type gets mac version
+func (mac Mac) Type() string {
+	return "mac"
 }
 
 func (mac Mac) info() string {

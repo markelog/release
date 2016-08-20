@@ -1,3 +1,4 @@
+// Package linux gets linux type/name/version
 package linux
 
 import (

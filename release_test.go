@@ -31,6 +31,10 @@ var _ = Describe("release", func() {
 				monkey.Unpatch(Uname)
 			})
 
+			It("should get type", func() {
+				Expect(Type()).To(Equal("mac"))
+			})
+
 			It("should get name", func() {
 				Expect(Name()).To(Equal("El Capitan"))
 			})
@@ -39,8 +43,12 @@ var _ = Describe("release", func() {
 				Expect(Version()).To(Equal("10.11.6"))
 			})
 
-			It("should get type", func() {
-				Expect(Type()).To(Equal("mac"))
+			It("should get all", func() {
+				typa, name, version := All()
+
+				Expect(typa).To(Equal("mac"))
+				Expect(name).To(Equal("El Capitan"))
+				Expect(version).To(Equal("10.11.6"))
 			})
 		})
 
@@ -66,31 +74,86 @@ var _ = Describe("release", func() {
 			It("should get type", func() {
 				Expect(Type()).To(Equal("mac"))
 			})
+
+			It("should get all", func() {
+				typa, name, version := All()
+
+				Expect(typa).To(Equal("mac"))
+				Expect(name).To(Equal("Leopard"))
+				Expect(version).To(Equal("10.5.0"))
+			})
 		})
 	})
 
-	Describe("unknown", func() {
-		BeforeEach(func() {
-			GOOS = "linux"
-			monkey.Patch(LSBRelease, func() string {
-				return ``
-			})
-		})
+	Describe("linux", func() {
+		const lsbUbuntu = `
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:   	Ubuntu 14.04.1 LTS
+Release:       	14.04
+Codename:      	trusty
+`
 
 		AfterEach(func() {
 			monkey.Unpatch(LSBRelease)
 		})
 
-		It("should get name", func() {
-			Expect(Name()).To(Equal(""))
+		Describe("ubuntu", func() {
+			BeforeEach(func() {
+				GOOS = "linux"
+				monkey.Patch(LSBRelease, func() string {
+					return lsbUbuntu
+				})
+			})
+
+			It("should get type", func() {
+				Expect(Type()).To(Equal("ubuntu"))
+			})
+
+			It("should get name", func() {
+				Expect(Name()).To(Equal("trusty"))
+			})
+
+			It("should get version", func() {
+				Expect(Version()).To(Equal("14.04"))
+			})
+
+			It("should get all", func() {
+				typa, name, version := All()
+
+				Expect(typa).To(Equal("ubuntu"))
+				Expect(name).To(Equal("trusty"))
+				Expect(version).To(Equal("14.04"))
+			})
 		})
 
-		It("should get version", func() {
-			Expect(Version()).To(Equal(""))
-		})
+		Describe("unknown", func() {
+			BeforeEach(func() {
+				GOOS = "linux"
+				monkey.Patch(LSBRelease, func() string {
+					return ""
+				})
+			})
 
-		It("should get type", func() {
-			Expect(Type()).To(Equal(""))
+			It("should get type", func() {
+				Expect(Type()).To(Equal(""))
+			})
+
+			It("should get name", func() {
+				Expect(Name()).To(Equal(""))
+			})
+
+			It("should get version", func() {
+				Expect(Version()).To(Equal(""))
+			})
+
+			It("should get all", func() {
+				typa, name, version := All()
+
+				Expect(typa).To(Equal(""))
+				Expect(name).To(Equal(""))
+				Expect(version).To(Equal(""))
+			})
 		})
 	})
 })
