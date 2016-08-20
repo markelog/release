@@ -2,6 +2,8 @@
 
 > Get OS type/name/version
 
+The thing is – golang standard library doesn't have methods/constants which could provide os info :/
+
 ```go
 
 // Depending on the system
