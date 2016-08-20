@@ -15,7 +15,7 @@ release.Name()
 // "10.11.6"
 release.Version()
 
-// "El Capitan", "10.11.6", "mac"
+// "mac", "El Capitan", "10.11.6"
 release.All()
 ```
 
