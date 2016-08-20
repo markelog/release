@@ -5,6 +5,7 @@
 ```go
 
 // Depending on the system
+
 // "El Capitan"
 release.Name()
 
@@ -15,6 +16,5 @@ release.Version()
 release.Type()
 ```
 
-Ubuntu and mac are supported
 
 
