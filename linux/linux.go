@@ -31,7 +31,6 @@ func (linux Linux) Name() string {
 	}
 
 	rName := regexp.MustCompile(namePattern)
-
 	return rName.FindAllStringSubmatch(linux.lsbrelease, 1)[0][1]
 }
 

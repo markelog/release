@@ -156,4 +156,30 @@ Codename:      	trusty
 			})
 		})
 	})
+
+	Describe("windows", func() {
+		BeforeEach(func() {
+			GOOS = "windows"
+		})
+
+		It("should get type", func() {
+			Expect(Type()).To(Equal(""))
+		})
+
+		It("should get name", func() {
+			Expect(Name()).To(Equal(""))
+		})
+
+		It("should get version", func() {
+			Expect(Version()).To(Equal(""))
+		})
+
+		It("should get all", func() {
+			typa, name, version := All()
+
+			Expect(typa).To(Equal(""))
+			Expect(name).To(Equal(""))
+			Expect(version).To(Equal(""))
+		})
+	})
 })

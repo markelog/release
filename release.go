@@ -6,15 +6,60 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/markelog/release/hollow"
 	"github.com/markelog/release/linux"
 	"github.com/markelog/release/mac"
 )
+
+type release interface {
+	Type() string
+	Name() string
+	Version() string
+}
 
 var (
 
 	// GOOS is reference to runtime.GOOS (needed for tests)
 	GOOS = runtime.GOOS
 )
+
+// Name gets os name
+func Name() (name string) {
+	return new().Name()
+}
+
+// Version gets os version
+func Version() (version string) {
+	return new().Version()
+}
+
+// Type gets type version
+func Type() (typa string) {
+	return new().Type()
+}
+
+// All gets all avaliable info
+func All() (typa, name, version string) {
+	instance := new()
+
+	typa, name, version = instance.Type(), instance.Name(), instance.Version()
+
+	return
+}
+
+func new() (rel release) {
+	if GOOS == "darwin" {
+		rel = mac.New(Uname())
+		return
+	}
+
+	if GOOS == "linux" {
+		rel = linux.New(LSBRelease())
+		return
+	}
+
+	return hollow.New()
+}
 
 // Uname executes `uname -a` command (exposed for tests)
 func Uname() string {
@@ -28,60 +73,4 @@ func LSBRelease() string {
 	result, _ := exec.Command("lsb_release", "-a").Output()
 
 	return strings.TrimSpace(string(result))
-}
-
-// All gets all avaliable info
-func All() (string, string, string) {
-	if GOOS == "darwin" {
-		os := mac.New(Uname())
-
-		return os.Type(), os.Name(), os.Version()
-	}
-
-	if GOOS == "linux" {
-		os := linux.New(LSBRelease())
-
-		return os.Type(), os.Name(), os.Version()
-	}
-
-	return "", "", ""
-}
-
-// Name gets os name
-func Name() string {
-	if GOOS == "darwin" {
-		return mac.New(Uname()).Name()
-	}
-
-	if GOOS == "linux" {
-		return linux.New(LSBRelease()).Name()
-	}
-
-	return ""
-}
-
-// Version gets os version
-func Version() string {
-	if GOOS == "darwin" {
-		return mac.New(Uname()).Version()
-	}
-
-	if GOOS == "linux" {
-		return linux.New(LSBRelease()).Version()
-	}
-
-	return ""
-}
-
-// Type gets type version
-func Type() string {
-	if GOOS == "darwin" {
-		return mac.New(Uname()).Type()
-	}
-
-	if GOOS == "linux" {
-		return linux.New(LSBRelease()).Type()
-	}
-
-	return ""
 }
