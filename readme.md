@@ -8,7 +8,7 @@ Since golang standard library doesn't have methods/constants which could provide
 
 // Depending on the system
 
-// "mac"
+// "osx"
 release.Type()
 
 // "El Capitan"
@@ -17,7 +17,7 @@ release.Name()
 // "10.11.6"
 release.Version()
 
-// "mac", "El Capitan", "10.11.6"
+// "osx", "El Capitan", "10.11.6"
 release.All()
 ```
 

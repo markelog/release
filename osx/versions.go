@@ -1,4 +1,4 @@
-package mac
+package osx
 
 var versions = map[string]map[string]string{
 	"15.6.0": map[string]string{

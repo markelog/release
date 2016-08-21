@@ -15,7 +15,7 @@ var _ = Describe("release", func() {
 		GOOS = runtime.GOOS
 	})
 
-	Describe("mac", func() {
+	Describe("osx", func() {
 		BeforeEach(func() {
 			GOOS = "darwin"
 		})
@@ -32,7 +32,7 @@ var _ = Describe("release", func() {
 			})
 
 			It("should get type", func() {
-				Expect(Type()).To(Equal("mac"))
+				Expect(Type()).To(Equal("osx"))
 			})
 
 			It("should get name", func() {
@@ -46,7 +46,7 @@ var _ = Describe("release", func() {
 			It("should get all", func() {
 				typa, name, version := All()
 
-				Expect(typa).To(Equal("mac"))
+				Expect(typa).To(Equal("osx"))
 				Expect(name).To(Equal("El Capitan"))
 				Expect(version).To(Equal("10.11.6"))
 			})
@@ -72,13 +72,13 @@ var _ = Describe("release", func() {
 			})
 
 			It("should get type", func() {
-				Expect(Type()).To(Equal("mac"))
+				Expect(Type()).To(Equal("osx"))
 			})
 
 			It("should get all", func() {
 				typa, name, version := All()
 
-				Expect(typa).To(Equal("mac"))
+				Expect(typa).To(Equal("osx"))
 				Expect(name).To(Equal("Leopard"))
 				Expect(version).To(Equal("10.5.0"))
 			})

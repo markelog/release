@@ -8,7 +8,7 @@ import (
 
 	"github.com/markelog/release/hollow"
 	"github.com/markelog/release/linux"
-	"github.com/markelog/release/mac"
+	"github.com/markelog/release/osx"
 )
 
 type release interface {
@@ -49,7 +49,7 @@ func All() (typa, name, version string) {
 
 func new() (rel release) {
 	if GOOS == "darwin" {
-		rel = mac.New(Uname())
+		rel = osx.New(Uname())
 		return
 	}
 
