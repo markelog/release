@@ -20,7 +20,7 @@ var _ = Describe("release", func() {
 			GOOS = "darwin"
 		})
 
-		Describe("newer version", func() {
+		Describe("El Capitan", func() {
 			BeforeEach(func() {
 				monkey.Patch(Uname, func() string {
 					return "Darwin test 15.6.0 Darwin Kernel Version 15.6.0: Thu Jun 23 18:25:34 PDT 2016; root:xnu-3248.60.10~1/RELEASE_X86_64 x86_64"
@@ -49,6 +49,38 @@ var _ = Describe("release", func() {
 				Expect(typa).To(Equal("osx"))
 				Expect(name).To(Equal("El Capitan"))
 				Expect(version).To(Equal("10.11.6"))
+			})
+		})
+
+		Describe("Sierra", func() {
+			BeforeEach(func() {
+				monkey.Patch(Uname, func() string {
+					return "Darwin demi 16.0.0 Darwin Kernel Version 16.0.0: Mon Aug 29 17:56:20 PDT 2016; root:xnu-3789.1.32~3/RELEASE_X86_64 x86_64"
+				})
+			})
+
+			AfterEach(func() {
+				monkey.Unpatch(Uname)
+			})
+
+			It("should get type", func() {
+				Expect(Type()).To(Equal("osx"))
+			})
+
+			It("should get name", func() {
+				Expect(Name()).To(Equal("Sierra"))
+			})
+
+			It("should get name", func() {
+				Expect(Version()).To(Equal("10.12.0"))
+			})
+
+			It("should get all", func() {
+				typa, name, version := All()
+
+				Expect(typa).To(Equal("osx"))
+				Expect(name).To(Equal("Sierra"))
+				Expect(version).To(Equal("10.12.0"))
 			})
 		})
 
