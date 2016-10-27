@@ -1,6 +1,11 @@
 package osx
 
 var versions = map[string]map[string]string{
+	"16.1.0": map[string]string{
+		"name":    "Sierra",
+		"version": "10.12.1",
+	},
+
 	"16.0.0": map[string]string{
 		"name":    "Sierra",
 		"version": "10.12.0",
