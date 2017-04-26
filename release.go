@@ -2,9 +2,7 @@
 package release
 
 import (
-	"os/exec"
 	"runtime"
-	"strings"
 
 	"github.com/markelog/release/hollow"
 	"github.com/markelog/release/linux"
@@ -16,12 +14,6 @@ type release interface {
 	Name() string
 	Version() string
 }
-
-var (
-
-	// GOOS is reference to runtime.GOOS (needed for tests)
-	GOOS = runtime.GOOS
-)
 
 // Name gets os name
 func Name() (name string) {
@@ -48,29 +40,15 @@ func All() (typa, name, version string) {
 }
 
 func new() (rel release) {
-	if GOOS == "darwin" {
-		rel = osx.New(Uname())
+	if runtime.GOOS == "darwin" {
+		rel = osx.New()
 		return
 	}
 
-	if GOOS == "linux" {
-		rel = linux.New(LSBRelease())
+	if runtime.GOOS == "linux" {
+		rel = linux.New()
 		return
 	}
 
 	return hollow.New()
-}
-
-// Uname executes `uname -a` command (exposed for tests)
-func Uname() string {
-	result, _ := exec.Command("uname", "-a").Output()
-
-	return strings.TrimSpace(string(result))
-}
-
-// LSBRelease executes `lsb_release -a` command (exposed for tests)
-func LSBRelease() string {
-	result, _ := exec.Command("lsb_release", "-a").Output()
-
-	return strings.TrimSpace(string(result))
 }

@@ -1,4 +1,4 @@
-package release_test
+package linux_test
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -9,5 +9,5 @@ import (
 
 func TestCprf(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Release Suite")
+	RunSpecs(t, "Linux Suite")
 }

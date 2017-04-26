@@ -2,6 +2,7 @@
 package linux
 
 import (
+	"os/exec"
 	"regexp"
 	"strings"
 )
@@ -18,9 +19,9 @@ type Linux struct {
 }
 
 // New creates Linux instance
-func New(lsbrelease string) *Linux {
+func New() *Linux {
 	return &Linux{
-		lsbrelease: lsbrelease,
+		lsbrelease: LSBRelease(),
 	}
 }
 
@@ -54,4 +55,11 @@ func (linux Linux) Type() string {
 	result := rType.FindAllStringSubmatch(linux.lsbrelease, 1)[0][1]
 
 	return strings.ToLower(result)
+}
+
+// LSBRelease executes `lsb_release -a` command (exposed for tests)
+func LSBRelease() string {
+	result, _ := exec.Command("lsb_release", "-a").Output()
+
+	return strings.TrimSpace(string(result))
 }
