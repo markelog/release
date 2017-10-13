@@ -1,7 +1,8 @@
 package osx
 
 var versions = map[string]string{
-	"newer":  "Sierra",
+	"newer":  "High Sierra",
+	"17.0.0": "High Sierra",
 	"16.0.0": "Sierra",
 	"15.6.0": "El Capitan",
 	"15.0.0": "El Capitan",

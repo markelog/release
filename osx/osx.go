@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	versionPattern  = "System Version:[[:alpha:]\\s]+([0-9]+\\.[0-9]+\\.[0-9]+)"
-	codenamePattern = "SOFTWARE LICENSE AGREEMENT FOR ([\\w\\s]+)"
+	versionPattern  = `System Version:[[:alpha:]\s]+([0-9]+\.[0-9]+(?:\.[0-9]+)?)`
+	codenamePattern = `SOFTWARE LICENSE AGREEMENT FOR ([\w\s]+)`
 )
 
 // OSX struct
